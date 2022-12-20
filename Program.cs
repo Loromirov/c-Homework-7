@@ -1,13 +1,14 @@
 ﻿/*
-Задача 47. Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
+Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, 
+и возвращает значение этого элемента или же указание, что такого элемента нет.
+Например, задан массив:
 
-m = 3, n = 4.
+1 4 7 2
+5 9 2 3
+8 4 2 4
 
-0,5 7 -2 -0,2
-1 -3,3 8 -9,9
-8 7,8 -7,1 9
+17 -> такого числа в массиве нет
 */
-
 int GetNumber(string message)
 {
     int result = 0;
@@ -28,21 +29,19 @@ int GetNumber(string message)
 
     return result;
 }
-double[,] InitMatrix(int rows, int columns)
+int[,] FillMatrix(int[,] matrix)
 {
-    double[,] matrix = new double[rows, columns];
-    Random rnd = new Random();
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            matrix[i,j] = Convert.ToDouble(rnd.Next(-100, 100)) / 10;
+            matrix[i,j] = new Random().Next(1, 10);
         }
     } 
     return matrix;
 }
 
-void PrintMatrix(double[,] matrix)
+void PrintMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -55,8 +54,17 @@ void PrintMatrix(double[,] matrix)
 
     Console.WriteLine();
 }
-
-int rows = GetNumber("Введите количество строк:");
-int columns = GetNumber("Введите количество столбцов:");
-double[,] matrix = InitMatrix(rows, columns);
+int rows = GetNumber("Введите номер строки");
+int columns = GetNumber("Введите номер столбца");
+int[,] matrix = new int[4,4];
+FillMatrix(matrix);
 PrintMatrix(matrix);
+if (rows < matrix.GetLength(0) && columns < matrix.GetLength(1))
+{
+     Console.WriteLine(matrix[rows, columns]);
+}
+
+else
+ {
+    Console.WriteLine($"{rows},{columns} -> такого числа в массиве нет");
+ }
